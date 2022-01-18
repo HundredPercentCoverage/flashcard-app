@@ -1,13 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 
 export function Router() {
   return (
     <BrowserRouter>
-      <h1>Flash Cards</h1>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   )
 }
