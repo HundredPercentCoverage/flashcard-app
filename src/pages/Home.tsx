@@ -49,7 +49,7 @@ export function Home() {
       {fileReadComplete && (
         <>
           <p className="pt-2 text-xl">Pick the right definition for...</p>
-          <p className="pt-2 pb-8 text-2xl font-semibold flex items-center justify-center w-full">
+          <p className="pt-2 pb-8 text-2xl font-semibold flex items-center justify-center w-full text-amber-500">
             {definitions[currentPosition].term}
           </p>
           <AnswerOptions
