@@ -22,15 +22,9 @@ export function AnswerOptions({
     let count = 0;
 
     while (count <= 3) {
-      const randomAnswer =
-        allAnswers[Math.floor(Math.random() * allAnswers.length)];
+      const randomAnswer = allAnswers[Math.floor(Math.random() * allAnswers.length)];
 
-      if (
-        !newAnswers.some(
-          (answer) => answer === randomAnswer && answer !== correctAnswer
-        )
-      ) {
-        console.log("add");
+      if (!newAnswers.some((answer) => answer === randomAnswer && answer !== correctAnswer)) {
         newAnswers.push(randomAnswer);
         count++;
       }
@@ -62,7 +56,7 @@ export function AnswerOptions({
       <form onSubmit={(e) => handleAnswerSubmit(e)}>
         <fieldset>
           {options?.map((option) => (
-            <div key={option} className="pb-2">
+            <label key={option} className="pb-2 flex items-center space-x-4">
               <input
                 type="radio"
                 id={option}
@@ -72,12 +66,15 @@ export function AnswerOptions({
                   e.target.checked && setSelectedOption(e.target.value)
                 }
                 required
+                className="accent-amber-600"
               />
-              <label htmlFor={option}>&nbsp;{option}</label>
-            </div>
+              <div>
+                <span>{option}</span>
+              </div>
+            </label>
           ))}
         </fieldset>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center mt-4">
           {answerState === "right" && (
             <button
               type="button"
