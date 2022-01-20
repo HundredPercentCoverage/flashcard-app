@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AnswerOptions } from "../components/AnswerOptions";
+import randomiseArray from "../utilities/randomiseArray";
 
 interface Definition {
   term: string;
@@ -34,7 +35,7 @@ export function Home() {
           }
         });
 
-        setDefinitions(defs);
+        setDefinitions(randomiseArray<Definition>(defs));
         setAllAnswers(answers);
         setFileReadComplete(true);
       };
