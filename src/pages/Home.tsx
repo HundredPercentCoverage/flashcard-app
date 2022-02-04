@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { AnswerOptions } from "../components/AnswerOptions";
+import { useAppContext } from "../context/AppContext";
 import randomiseArray from "../utilities/randomiseArray";
 
 interface Definition {
@@ -8,6 +9,7 @@ interface Definition {
 }
 
 export function Home() {
+  const { resetScore } = useAppContext();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [definitions, setDefinitions] = useState<Definition[]>([]);
   const [allAnswers, setAllAnswers] = useState<string[]>([]);
@@ -38,6 +40,7 @@ export function Home() {
         setDefinitions(randomiseArray<Definition>(defs));
         setAllAnswers(answers);
         setFileReadComplete(true);
+        resetScore();
       };
 
       reader.readAsText(fileInputRef.current?.files[0]);

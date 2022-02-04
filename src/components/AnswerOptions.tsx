@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useAppContext } from "../context/AppContext";
 
 interface Props {
   correctAnswer: string;
@@ -13,6 +14,7 @@ export function AnswerOptions({
   allAnswers,
   progressToNext,
 }: Props) {
+  const { appState: { score }, increaseScore, decreaseScore } = useAppContext();
   const [answerState, setAnswerState] = useState<AnswerState>();
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -42,8 +44,10 @@ export function AnswerOptions({
 
     if (selectedOption === correctAnswer) {
       setAnswerState("right");
+      increaseScore();
     } else {
       setAnswerState("wrong");
+      decreaseScore();
     }
   };
 
@@ -74,7 +78,8 @@ export function AnswerOptions({
             </label>
           ))}
         </fieldset>
-        <div className="w-full flex items-center justify-center mt-4">
+        <div className="w-full flex flex-col space-y-4 items-center justify-center mt-4">
+          <p className="font-bold text-xl">Current score: {score}</p>
           {answerState === "right" && (
             <button
               type="button"
