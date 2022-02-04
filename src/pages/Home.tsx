@@ -62,7 +62,7 @@ export function Home() {
           />
         </>
       )}
-      <div className="w-full flex items-center justify-center mt-4">
+      <div className="w-full flex items-center justify-center mt-4 pb-8">
         <button
           type="button"
           className="bg-amber-500 hover:opacity-75 font-semibold px-4 py-2 rounded-md text-white text-lg"
