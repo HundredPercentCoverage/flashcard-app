@@ -16,25 +16,27 @@ export function AnswerOptions({
 }: Props) {
   const { appState: { score }, increaseScore, decreaseScore } = useAppContext();
   const [answerState, setAnswerState] = useState<AnswerState>();
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState('');
 
   const generateAnswers = () => {
-    const newAnswers: string[] = [];
+    const answerOptions: string[] = [];
     const correctAnswerIndex = Math.floor(Math.random() * 3);
     let count = 0;
 
     while (count <= 3) {
-      const randomAnswer = allAnswers[Math.floor(Math.random() * allAnswers.length)];
+      const randomAnswerFromListOfAllAnswers = allAnswers[Math.floor(Math.random() * allAnswers.length)];
 
-      if (!newAnswers.some((answer) => answer === randomAnswer && answer !== correctAnswer)) {
-        newAnswers.push(randomAnswer);
+      if (randomAnswerFromListOfAllAnswers === correctAnswer) continue;
+
+      if (!answerOptions.find((answerOption) => answerOption === randomAnswerFromListOfAllAnswers)) {
+        answerOptions.push(randomAnswerFromListOfAllAnswers);
         count++;
       }
     }
 
-    newAnswers[correctAnswerIndex] = correctAnswer;
+    answerOptions[correctAnswerIndex] = correctAnswer;
 
-    return newAnswers;
+    return answerOptions;
   };
 
   const options = useMemo(() => generateAnswers(), [correctAnswer]);
