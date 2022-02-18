@@ -31,9 +31,16 @@ export function Home() {
           const parts = line.split(",");
 
           if (parts[1]) {
-            const fixedAnswer = parts[1].replaceAll('"', "");
-            defs.push({ term: parts[0], definition: fixedAnswer });
-            answers.push(fixedAnswer);
+            let definition = parts[1].replaceAll('"', '');
+
+            // There should only be two parts per row unless the second contains a comma in a quoted string
+            if (parts.length > 2) {
+              const definitionParts = parts.slice(1);
+              definition = definitionParts.reduce((acc, part) => acc + part).replaceAll('"', '');
+            }
+
+            defs.push({ term: parts[0], definition });
+            answers.push(definition);
           }
         });
 
@@ -48,11 +55,11 @@ export function Home() {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto px-3">
+    <div className="max-w-screen-xl px-3 mx-auto">
       {fileReadComplete && (
         <>
           <p className="pt-2 text-xl">Pick the right definition for...</p>
-          <p className="pt-2 pb-8 text-2xl font-semibold flex items-center justify-center w-full text-amber-500">
+          <p className="flex items-center justify-center w-full pt-2 pb-8 text-2xl font-semibold text-amber-500">
             {definitions[currentPosition].term}
           </p>
           <AnswerOptions
@@ -62,10 +69,10 @@ export function Home() {
           />
         </>
       )}
-      <div className="w-full flex items-center justify-center mt-4 pb-8">
+      <div className="flex items-center justify-center w-full pb-8 mt-4">
         <button
           type="button"
-          className="bg-amber-500 hover:opacity-75 font-semibold px-4 py-2 rounded-md text-white text-lg"
+          className="px-4 py-2 text-lg font-semibold text-white rounded-md bg-amber-500 hover:opacity-75"
           onClick={() => fileInputRef.current?.click()}
         >
           {allAnswers.length > 0 ? 'Open New File' : 'Open File'}
